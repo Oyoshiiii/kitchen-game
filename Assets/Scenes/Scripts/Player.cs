@@ -30,7 +30,7 @@ public class Player : MonoBehaviour
     private float rotationSpeed = 10f;
 
     [SerializeField]
-    private float sprintSpeed = 15f;
+    private float sprintSpeedCoefficient = 1.5f;
 
     [SerializeField]
     private LayerMask counterMask;
@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
+        gameInput.OnSprintActionStarted += GameInput_OnSprintActionStarted;
+        gameInput.OnSprintActionCanceled += GameInput_OnSprintActionCanceled;
     }
 
     private void Update()
@@ -135,12 +137,23 @@ public class Player : MonoBehaviour
         transform.forward = Vector3.Slerp(transform.forward, moveDir, rotationSpeed * Time.deltaTime);
     }
 
-    private void GameInput_OnInteractAction(object sebder, EventArgs e)
+    private void GameInput_OnInteractAction(object sender, EventArgs e)
     {
         if(selectedCounter != null)
         {
             selectedCounter.Interact();
         }
+    }
+
+    private void GameInput_OnSprintActionStarted(object sender, EventArgs e)
+    {
+        IsSprinting = true;
+        speed *= sprintSpeedCoefficient;
+    }
+    private void GameInput_OnSprintActionCanceled(object sender, EventArgs e)
+    {
+        IsSprinting = false;
+        speed /= sprintSpeedCoefficient;
     }
 
     private void SetSelectedCounter(ClearCounter selectedCounter)
