@@ -883,7 +883,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   gameInput: {fileID: 173725295}
-  speed: 15
+  speed: 13
   rotationSpeed: 9
   sprintSpeed: 15
   counterMask:

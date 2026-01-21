@@ -3,6 +3,23 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+    private void Awake()
+    {
+        if(Instance != null)
+        {
+            Debug.LogError("На уровне больше 1 игрока! Синглтон сломался");
+        }
+
+        Instance = this;
+    }
+
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs
+    {
+        public ClearCounter selectedCounter;
+    }
+
     [SerializeField]
     private GameInput gameInput;
 
@@ -33,7 +50,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         HandleMovement();
-        //HandleInteractions();
+        HandleInteractions();
     }
 
     private void HandleInteractions()
@@ -52,9 +69,20 @@ public class Player : MonoBehaviour
             out RaycastHit raycastHit, interactDist, counterMask))
         {
            if(raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
-            {
-                clearCounter.Interact();
-            }
+           {
+                if(clearCounter != selectedCounter)
+                {
+                    SetSelectedCounter(clearCounter);
+                }
+           }
+           else
+           {
+                SetSelectedCounter(null);
+           }
+        }
+        else
+        {
+            SetSelectedCounter(null);
         }
     }
 
@@ -109,23 +137,18 @@ public class Player : MonoBehaviour
 
     private void GameInput_OnInteractAction(object sebder, EventArgs e)
     {
-        Vector2 inputVector = gameInput.GetMovementVectorNormalized();
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
-        if (moveDir != Vector3.zero)
+        if(selectedCounter != null)
         {
-            lastInteractionDir = moveDir;
+            selectedCounter.Interact();
         }
+    }
 
-        float interactDist = 2f;
-
-        if (Physics.Raycast(transform.position, lastInteractionDir,
-            out RaycastHit raycastHit, interactDist, counterMask))
+    private void SetSelectedCounter(ClearCounter selectedCounter)
+    {
+        this.selectedCounter = selectedCounter;
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
-            if (raycastHit.transform.TryGetComponent(out ClearCounter clearCounter))
-            {
-                clearCounter.Interact();
-            }
-        }
+            selectedCounter = this.selectedCounter
+        });
     }
 }
