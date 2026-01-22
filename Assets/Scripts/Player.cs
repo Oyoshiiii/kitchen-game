@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
+        
         if(moveDir !=  Vector3.zero)
         {
             lastInteractionDir = moveDir;
@@ -131,7 +131,8 @@ public class Player : MonoBehaviour
 
         if (canMove)
         {
-            transform.position += speed * moveDir * Time.deltaTime;
+            float speedModifier = IsSprinting ? sprintSpeedCoefficient : 1;
+            transform.position += speed * moveDir * Time.deltaTime * speedModifier;
         }
 
         transform.forward = Vector3.Slerp(transform.forward, moveDir, rotationSpeed * Time.deltaTime);
@@ -148,17 +149,15 @@ public class Player : MonoBehaviour
     private void GameInput_OnSprintActionStarted(object sender, EventArgs e)
     {
         IsSprinting = true;
-        speed *= sprintSpeedCoefficient;
     }
     private void GameInput_OnSprintActionCanceled(object sender, EventArgs e)
     {
         IsSprinting = false;
-        speed /= sprintSpeedCoefficient;
     }
 
-    private void SetSelectedCounter(ClearCounter selectedCounter)
+    private void SetSelectedCounter(ClearCounter clearCounter)
     {
-        this.selectedCounter = selectedCounter;
+        this.selectedCounter = clearCounter;
         OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
             selectedCounter = this.selectedCounter
