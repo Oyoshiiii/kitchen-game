@@ -1,21 +1,21 @@
+using System;
 using UnityEngine;
 
-public class ContainerCounter : BaseCounter, IKitchenObjectParent
+public class ContainerCounter : BaseCounter
 {
     [SerializeField]
     private KitchenObjectSO kitchenObjectSO;
 
+    public event EventHandler OnPlayerGrabbedObject;
+
     public override void Interact(Player player)
     {
-        if (kitchenObject == null)
-        {
+       if(!player.HasKitchenObject())
+       {
             Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab, GetKitchenObjectFollowTransform());
-            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(this);
-        }
-        else
-        {
-            //отдаем объект игроку в руки
-            kitchenObject.SetKitchenObjectParent(player);
-        }
+            kitchenObjectTransform.GetComponent<KitchenObject>().SetKitchenObjectParent(player);
+
+            OnPlayerGrabbedObject?.Invoke(this, EventArgs.Empty);
+       }
     }
 }
