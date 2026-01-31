@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7890978082482396163}
+  - component: {fileID: -4293842975941578801}
   m_Layer: 0
   m_Name: Meat Uncooked
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 5644157242941562470}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-4293842975941578801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3061132107835131183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8f91d6bb86cfb4292d7544fb5a2188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObject
+  kitchenObjectSO: {fileID: 11400000, guid: 35cd594da7edc9641a76f244fb21d636, type: 2}
 --- !u!1001 &8844537576502216934
 PrefabInstance:
   m_ObjectHideFlags: 0

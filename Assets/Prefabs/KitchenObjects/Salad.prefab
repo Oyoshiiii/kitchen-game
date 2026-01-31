@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7744100900580314822}
+  - component: {fileID: -5266681383477299483}
   m_Layer: 0
   m_Name: Salad
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   - {fileID: 7825652325429342376}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-5266681383477299483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685754265793831111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad8f91d6bb86cfb4292d7544fb5a2188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObject
+  kitchenObjectSO: {fileID: 11400000, guid: 442b111beaea34641b7e7380594ba44e, type: 2}
 --- !u!1001 &6372666422532007464
 PrefabInstance:
   m_ObjectHideFlags: 0
