@@ -9,7 +9,12 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
 
     public virtual void Interact(Player player)
     {
-        Debug.LogError("BaseCounter.Interact() ббыла вызвана");
+        Debug.LogError("BaseCounter.Interact() была вызвана");
+    }
+
+    public virtual void InteractAlternative(Player player)
+    {
+        Debug.LogError("BaseCounter.InteractAlternative() была вызвана");
     }
 
     public Transform GetKitchenObjectFollowTransform()

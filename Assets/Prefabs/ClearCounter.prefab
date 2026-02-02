@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1589190069197052933, guid: 87bc24c558fdc2b439bf1c461de78932, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.289
+      objectReference: {fileID: 0}
     - target: {fileID: 3861821057572475444, guid: 87bc24c558fdc2b439bf1c461de78932, type: 3}
       propertyPath: m_Name
       value: ClearCounter

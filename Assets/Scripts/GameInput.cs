@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class GameInput : MonoBehaviour
 {
     public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAlternativeAction;
 
     public event EventHandler OnSprintActionStarted;
     public event EventHandler OnSprintActionCanceled;
@@ -16,15 +17,21 @@ public class GameInput : MonoBehaviour
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
         inputActions.Player.Interact.performed += Interact_perfomed;
+        inputActions.Player.InteractAlternative.performed += InteractAlternative_perfomed;
 
         inputActions.Player.Sprint.started += Sprint_started;
         inputActions.Player.Sprint.canceled += Sprint_canceled;
     }
 
-    //взаимодействие
+    //взаимодействие (E)
     private void Interact_perfomed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
+    }
+    //взаимодействие alternative (F)
+    private void InteractAlternative_perfomed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnInteractAlternativeAction?.Invoke(this, EventArgs.Empty);
     }
 
     //бег
