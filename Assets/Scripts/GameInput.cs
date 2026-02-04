@@ -10,6 +10,8 @@ public class GameInput : MonoBehaviour
     public event EventHandler OnSprintActionStarted;
     public event EventHandler OnSprintActionCanceled;
 
+    public event EventHandler OnDashAction;
+
     private PlayerInputActions inputActions;
 
     private void Awake()
@@ -21,6 +23,8 @@ public class GameInput : MonoBehaviour
 
         inputActions.Player.Sprint.started += Sprint_started;
         inputActions.Player.Sprint.canceled += Sprint_canceled;
+
+        inputActions.Player.Dash.performed += Dash_performed;
     }
 
     //взаимодействие (E)
@@ -44,6 +48,16 @@ public class GameInput : MonoBehaviour
         OnSprintActionCanceled?.Invoke(this, EventArgs.Empty);
     }
 
+    //дэш (рывок в сторону)
+    private void Dash_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnDashAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// нормализует вектор движения игрока
+    /// </summary>
+    /// <returns> нормализованный вектор движения </returns>
     public Vector2 GetMovementVectorNormalized()
     {
         Vector2 inputVector = inputActions.Player.Move.ReadValue<Vector2>();

@@ -7,6 +7,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private const string ISWALKING = "IsWalking";
     private const string ISSPRINTING = "IsSprinting";
+    private const string WASDASHING = "WasDashed";
+
     private Animator animator;
 
     private void Awake()
@@ -14,6 +16,16 @@ public class PlayerAnimation : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool(ISWALKING, false);
         animator.SetBool(ISSPRINTING, false);
+    }
+
+    private void Start()
+    {
+        player.OnPlayerDashed += Player_OnPlayerDashed;
+    }
+
+    private void Player_OnPlayerDashed(object sender, System.EventArgs e)
+    {
+        animator.SetTrigger(WASDASHING);
     }
 
     private void Update()

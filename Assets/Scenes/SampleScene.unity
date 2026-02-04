@@ -1617,6 +1617,7 @@ MonoBehaviour:
   speed: 5
   rotationSpeed: 9
   sprintSpeedCoefficient: 3
+  dashSpeedCoefficient: 9
   counterMask:
     serializedVersion: 2
     m_Bits: 64

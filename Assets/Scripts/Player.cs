@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour, IKitchenObjectParent
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         public BaseCounter selectedCounter;
     }
 
+    public event EventHandler OnPlayerDashed;
+
     [SerializeField]
     private GameInput gameInput;
 
@@ -36,6 +39,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
     private float sprintSpeedCoefficient = 1.5f;
 
     [SerializeField]
+    private float dashSpeedCoefficient = 2f;
+
+    [SerializeField]
     private LayerMask counterMask;
 
     private Vector3 lastInteractionDir;
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
     public bool IsWalking { get; private set; }
     public bool IsSprinting { get; private set; }
+    public bool WasDashed { get; private set; }
 
     private void Start()
     {
@@ -54,6 +61,8 @@ public class Player : MonoBehaviour, IKitchenObjectParent
 
         gameInput.OnSprintActionStarted += GameInput_OnSprintActionStarted;
         gameInput.OnSprintActionCanceled += GameInput_OnSprintActionCanceled;
+
+        gameInput.OnDashAction += GameInput_OnDashAction;
     }
 
     private void Update()
@@ -62,6 +71,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         HandleInteractions();
     }
 
+    /// <summary>
+    /// обработчик взаимодействий игрока с другими объектами
+    /// </summary>
     private void HandleInteractions()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -95,6 +107,9 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         }
     }
 
+    /// <summary>
+    /// обработчик движения игрока
+    /// </summary>
     private void HandleMovement()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
@@ -139,7 +154,51 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         if (canMove)
         {
             float speedModifier = IsSprinting ? sprintSpeedCoefficient : 1;
-            transform.position += speed * moveDir * Time.deltaTime * speedModifier;
+
+            //проверка на бег, тк был баг с тем, что во время бега издалека
+            //игрок проходил сквозь объекты
+            //(типо игрок уже бежал какое-то время до объекта с расстояния)
+            if (IsSprinting)
+            {
+                float sprintDist = speed * Time.deltaTime * speedModifier;
+
+                bool canSprint = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight,
+                    playerRadius, moveDir, sprintDist);
+
+                if (!canSprint)
+                {
+                    speedModifier = 1;
+                }
+            }
+
+            if (WasDashed)
+            {
+                OnPlayerDashed?.Invoke(this, EventArgs.Empty);
+
+                //проверка на то, идет ли игрок, чтобы не было нулевого moveDir
+                Vector3 moving = IsWalking ? moveDir : transform.forward;
+
+                //аналогичная проверка на рывок, чтобы не проходить сквозь объекты
+                float dashDist = speed * Time.deltaTime * dashSpeedCoefficient * speedModifier;
+
+                bool canDash = !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight,
+                    playerRadius, moving, dashDist);
+
+                if (canDash)
+                {
+                    transform.position += speed * moving * Time.deltaTime * dashSpeedCoefficient * speedModifier;
+                }
+                else
+                {
+                    transform.position += speed * moveDir * Time.deltaTime * speedModifier;
+                }
+
+                WasDashed = false;
+            }
+            else
+            {
+                transform.position += speed * moveDir * Time.deltaTime * speedModifier;
+            }
         }
 
         transform.forward = Vector3.Slerp(transform.forward, moveDir, rotationSpeed * Time.deltaTime);
@@ -169,6 +228,15 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         IsSprinting = false;
     }
 
+    private void GameInput_OnDashAction(object sender, EventArgs e)
+    {
+        WasDashed = true;
+    }
+
+    /// <summary>
+    /// принимает текущий counter, с которым было взаимодействие и переводит его в состояние выбранного игроком
+    /// </summary>
+    /// <param name="clearCounter"> counter, на который смотрит игрок </param>
     private void SetSelectedCounter(BaseCounter clearCounter)
     {
         this.selectedCounter = clearCounter;
@@ -178,26 +246,45 @@ public class Player : MonoBehaviour, IKitchenObjectParent
         });
     }
 
+    /// <summary>
+    /// получение местоположения кухонного объекта "в руках" игрока
+    /// </summary>
+    /// <returns> местоположение кухонного объекта </returns>
     public Transform GetKitchenObjectFollowTransform()
     {
         return KitchenObjectPlace;
     }
 
+    /// <summary>
+    /// принимает кухонный объект, который взял игрок "в руки", и задает его значение как текущее 
+    /// </summary>
+    /// <param name="kitchenObject"> кухонный объект </param>
     public void SetKitchenObject(KitchenObject kitchenObject)
     {
         this.kitchenObject = kitchenObject;
     }
 
+    /// <summary>
+    /// получение кухонного объекта "в руках" игрока
+    /// </summary>
+    /// <returns> кухонный объект </returns>
     public KitchenObject GetKitchenObject()
     {
         return kitchenObject;
     }
 
+    /// <summary>
+    /// удаление кухонного объекта "из рук" игрока
+    /// </summary>
     public void ClearKitchenObject()
     {
         kitchenObject = null;
     }
 
+    /// <summary>
+    /// проверяет, есть ли у игрока "в руках" кухонный объект
+    /// </summary>
+    /// <returns> есть ли кухонный объект </returns>
     public bool HasKitchenObject()
     {
         return kitchenObject != null;

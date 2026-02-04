@@ -26,11 +26,19 @@ public class KitchenObject : MonoBehaviour
         transform.localPosition = Vector3.zero;
     }
 
+    /// <summary>
+    /// получение родителя текущего кухонного объекта
+    /// </summary>
+    /// <returns> родитель </returns>
     public IKitchenObjectParent GetKitchenObjectParent()
     {
         return kitchenObjectParent;
     }
 
+    /// <summary>
+    /// получение scriptsbleObject текущего кухонного объекта
+    /// </summary>
+    /// <returns> scriptsbleObject текущего кухонного объекта </returns>
     public KitchenObjectSO GetKitchenObjectSO()
     {
         return kitchenObjectSO;
