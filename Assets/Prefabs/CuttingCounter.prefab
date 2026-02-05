@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c961922016e6aa049aa1751867c3be96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBarUI
-  cuttingCounter: {fileID: 9201182535250187035}
+  cuttingCounter: {fileID: 1526344536833328791}
   barImage: {fileID: 8143701049910867644}
 --- !u!114 &8678766892201870856
 MonoBehaviour:
@@ -431,14 +431,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3861821057572475444, guid: 87bc24c558fdc2b439bf1c461de78932, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 9201182535250187035}
+      addedObject: {fileID: 1526344536833328791}
   m_SourcePrefab: {fileID: 100100000, guid: 87bc24c558fdc2b439bf1c461de78932, type: 3}
 --- !u!1 &781391170438689865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3861821057572475444, guid: 87bc24c558fdc2b439bf1c461de78932, type: 3}
   m_PrefabInstance: {fileID: 4562145235674916477}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &9201182535250187035
+--- !u!114 &1526344536833328791
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -447,7 +447,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 781391170438689865}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71ae58d6f0e541e4c8b8ae9339dc156d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d2bc5120936e02409bec99662a44e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CuttingCounter
   counterTopPoint: {fileID: 2972957503512738424}
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c6792ef997582342bcce5bc7edce6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SelectedCounterVisual
-  baseCounter: {fileID: 9201182535250187035}
+  baseCounter: {fileID: 1526344536833328791}
   visualGameObjects:
   - {fileID: 4407093375818918608}
   - {fileID: 416045430761786937}

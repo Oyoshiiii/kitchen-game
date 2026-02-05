@@ -19,10 +19,7 @@ public class BaseCounter : MonoBehaviour, IKitchenObjectParent
     /// принимает объект игрока, описывает взаимодействие игрока с текущим counter-ом для нарезки овощей
     /// </summary>
     /// <param name="player"> игрок </param>
-    public virtual void InteractAlternative(Player player)
-    {
-        Debug.LogError("BaseCounter.InteractAlternative() была вызвана");
-    }
+    public virtual void InteractAlternative(Player player) { }
 
     /// <summary>
     /// получение точки спавна кухонного объекта на текущем counter-е
