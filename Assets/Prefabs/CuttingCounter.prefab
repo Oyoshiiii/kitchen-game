@@ -117,8 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c961922016e6aa049aa1751867c3be96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProgressBarUI
-  cuttingCounter: {fileID: 1526344536833328791}
   barImage: {fileID: 8143701049910867644}
+  hasProgressGameObject: {fileID: 781391170438689865}
 --- !u!114 &8678766892201870856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,13 +353,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4589716710238282922, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3906070801281331783}
   m_SourcePrefab: {fileID: 100100000, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
 --- !u!4 &4139828908512547928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4589716710238282923, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
   m_PrefabInstance: {fileID: 487043461881917683}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4139828908512547929 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4589716710238282922, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
+  m_PrefabInstance: {fileID: 487043461881917683}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3906070801281331783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4139828908512547929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66be3b77c26b6f74dad22e463174c61e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CuttingCounterVisual
+  cuttingCounter: {fileID: 1526344536833328791}
 --- !u!1001 &4562145235674916477
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,11 +596,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SelectedCounterVisual
   baseCounter: {fileID: 1526344536833328791}
   visualGameObjects:
-  - {fileID: 4407093375818918608}
   - {fileID: 416045430761786937}
-  - {fileID: 8405060235039798254}
---- !u!1 &8405060235039798254 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4171094756720850327, guid: d72bee846803d074784ffb8f64e993ca, type: 3}
-  m_PrefabInstance: {fileID: 5568262597223499385}
-  m_PrefabAsset: {fileID: 0}
+  - {fileID: 4407093375818918608}
