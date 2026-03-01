@@ -14,6 +14,7 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+
         animator.SetBool(ISWALKING, false);
         animator.SetBool(ISSPRINTING, false);
     }

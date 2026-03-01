@@ -6,6 +6,10 @@ public class DeliveryManager : MonoBehaviour
 {
     public event EventHandler OnRecipeSpawned;
     public event EventHandler OnRecipeCompleted;
+
+    public event EventHandler OnRecipeSuccess;
+    public event EventHandler OnRecipeFail;
+
     public static DeliveryManager Instance { private set; get; }
 
     [SerializeField] private RecipeListSO recipeListSO;
@@ -14,6 +18,7 @@ public class DeliveryManager : MonoBehaviour
     private float spawnRecipeTimer;
     private float spawnRecipeTimerMax = 4f;
     private int waitingRecipesMax = 4;
+    private int successfulRecipesAmount;
 
     private void Awake()
     {
@@ -82,7 +87,10 @@ public class DeliveryManager : MonoBehaviour
                     Debug.Log("Игрок доставил нужный рецепт!");
                     waitingRecipeSOList.RemoveAt(i);
 
+                    successfulRecipesAmount++;
+
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+                    OnRecipeSuccess?.Invoke(this, EventArgs.Empty);
                     return;
                 }
             }
@@ -91,10 +99,16 @@ public class DeliveryManager : MonoBehaviour
         // совпадений не найдено
         // игрок доставил не тот рецепт!
         Debug.Log("игрок доставил не тот рецепт!");
+        OnRecipeFail?.Invoke(this, EventArgs.Empty);
     }
 
     public List<RecipeSO> GetWaitingRecipeSOList()
     {
         return waitingRecipeSOList;
+    }
+
+    public int GetSuccessfulRecipesAmount()
+    {
+        return successfulRecipesAmount;
     }
 }

@@ -16,7 +16,7 @@ public class CuttingCounterVisual : MonoBehaviour
 
     private void Start()
     {
-        cuttingCounter.OnProductsCut += CuttingCounter_OnProductsCut;
+        CuttingCounter.OnProductsCut += CuttingCounter_OnProductsCut;
     }
 
     private void CuttingCounter_OnProductsCut(object sender, EventArgs e)

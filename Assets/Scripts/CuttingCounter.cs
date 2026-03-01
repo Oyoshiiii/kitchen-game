@@ -8,7 +8,12 @@ public class CuttingCounter : BaseCounter, IHasProgress
     [SerializeField]
     private CuttingRecipeSO[] cuttingRecipesSOArray;
 
-    public event EventHandler OnProductsCut;
+    public static event EventHandler OnProductsCut;
+
+    new public static void ResetStaticData()
+    {
+        OnProductsCut = null;
+    }
 
     public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     public class OnProgressChangedEventArgs : EventArgs
@@ -16,7 +21,21 @@ public class CuttingCounter : BaseCounter, IHasProgress
         public float progressNormalized;
     }
 
+    //public static CuttingCounter Instance { get; private set; }
+
     private int cuttingProgress;
+
+    //private void Awake()
+    //{
+    //    if(Instance == null)
+    //    {
+    //        Instance = this;
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("Больше 1 CuttingCounter!");
+    //    }
+    //}
 
     /// <summary>
     /// принимает объект игрока и осуществляет механику взаимодействия с тумбочками (положить/взять объект)

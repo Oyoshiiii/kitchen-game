@@ -14,39 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentVersion: 1.01
   subtype: kitchenchaos
-  lastShownTimestamp: 1771489828
+  lastShownTimestamp: 1772300015
   lastUpdateResponse:
     version: 1.01
     versionUrl: https://unitycodemonkey.com
-  checkedLastUpdateTimestamp: 1771489828
+  checkedLastUpdateTimestamp: 1772300015
   lastQOTDResponse:
-    questionId: 273
-    questionText: When you create a new script, do you always have to extend MonoBehaviour?
-    answerA: Yes
-    answerB: No
-    answerC: Only if you want to use it as a Game Object Component
+    questionId: 276
+    questionText: What is the difference between Application.dataPath and Application.persistentDataPath
+      on Windows?
+    answerA: No difference on Windows
+    answerB: Application.dataPath is the install folder and Application.persistentDataPath
+      is on the Registry
+    answerC: Application.dataPath is the install folder and Application.persistentDataPath
+      is on the User Data
     answerD: 
     answerE: 
-  lastQotdTimestamp: 1771489828
+  lastQotdTimestamp: 1772300015
   lastDynamicHeaderResponse:
     topImageUrl: https://codemonkeyexternal.blob.core.windows.net/external/Misc/gameDevReport_2.png
     topText: Stay up to date with the latest in Game Dev straight to your inbox!
     topLink: gamedevreport
     bottomText: My 10+ Years of C# Knowledge in 1 Course!
     bottomLink: csharpcourse
-  lastDynamicHeaderTimestamp: 1771489828
+  lastDynamicHeaderTimestamp: 1772300015
   websiteLatestMessage:
     text: <a href="https://cmonkey.co/freecourses">Check out all my FREE courses!
       Click here!</a>
-  websiteLatestMessageTimestamp: 1771489828
+  websiteLatestMessageTimestamp: 1772300015
   websiteLatestVideos:
     videos:
-    - youTubeId: qzfsN2tm9ss
-      title: Add Photo Mode to your Games! (FREE Download, Players will LOVE it!)
-    - youTubeId: cYM059zGSrs
-      title: 100 Steam Game Marketing Questions Answered to help you find SUCCESS!
-    - youTubeId: PBDBKTwZI8Y
-      title: TOP 10 FREE NEW Assets FEBRUARY 2026!
-    - youTubeId: Vb5BZu7TOIk
-      title: 8 QUICK Game Dev Tips for SUCCESS!
-  websiteLatestVideosTimestamp: 1771489828
+    - youTubeId: RXf1jsXxWkg
+      title: Learn how to write PRO level code with this DEEP DIVE!
+    - youTubeId: Lm_YTrn9KYc
+      title: Unity HDRP is DEAD!
+    - youTubeId: Ah2WF-_rZig
+      title: Unity EXPLAINED in 200 SECONDS!
+    - youTubeId: FdyHnVIoQko
+      title: TOP 10 NEW Systems and Tools FEBRUARY 2026! | Unity Asset Store
+  websiteLatestVideosTimestamp: 1772300015

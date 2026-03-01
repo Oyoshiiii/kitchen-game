@@ -4,6 +4,8 @@ using UnityEngine.EventSystems;
 
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance { get; private set; }
+
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternativeAction;
 
@@ -12,10 +14,21 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler OnDashAction;
 
+    public event EventHandler OnPauseAction;
+
     private PlayerInputActions inputActions;
 
     private void Awake()
     {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("больше 1 gameInput");
+        }
+
         inputActions = new PlayerInputActions();
         inputActions.Player.Enable();
         inputActions.Player.Interact.performed += Interact_perfomed;
@@ -25,6 +38,28 @@ public class GameInput : MonoBehaviour
         inputActions.Player.Sprint.canceled += Sprint_canceled;
 
         inputActions.Player.Dash.performed += Dash_performed;
+
+        inputActions.Player.Pause.performed += Pause_performed;
+    }
+
+    private void OnDestroy()
+    {
+        inputActions.Player.Interact.performed -= Interact_perfomed;
+        inputActions.Player.InteractAlternative.performed -= InteractAlternative_perfomed;
+
+        inputActions.Player.Sprint.started -= Sprint_started;
+        inputActions.Player.Sprint.canceled -= Sprint_canceled;
+
+        inputActions.Player.Dash.performed -= Dash_performed;
+
+        inputActions.Player.Pause.performed -= Pause_performed;
+
+        inputActions.Dispose();
+    }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
 
     //взаимодействие (E)
